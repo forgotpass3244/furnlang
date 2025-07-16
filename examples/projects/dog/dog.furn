@@ -7,7 +7,7 @@ class Dog
     pub Awake = true
     pub Mood = “happy”
 
-    __New(string: _Name, ~float: _Age)
+    __New(string: _Name, ~float: _Age = 0.0)
     {
         :: on initialization
         Name = _Name.Capitalize()
