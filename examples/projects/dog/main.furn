@@ -1,0 +1,16 @@
+require "dog"
+
+let Pet = Dog(“coco”)
+Pet.Bark()
+
+Pet.Hungry = true
+if Pet.Hungry
+{
+    Pet.Feed()
+}
+
+Pet.Sleep()
+Std.Task.Sleep(3)
+
+Pet.WakeUp()
+Pet.SayMood()
