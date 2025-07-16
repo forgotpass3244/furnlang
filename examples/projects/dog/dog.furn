@@ -1,0 +1,47 @@
+class Dog
+{
+    :: Initializing class members
+    pub Name
+    pub Age
+    pub Hungry = false
+    pub Awake = true
+    pub Mood = “happy”
+
+    __New(string: _Name, ~float: _Age)
+    {
+        :: on initialization
+        Name = _Name.Capitalize()
+        Age = _Age
+    }
+
+    pub Bark()
+    {
+        :: Bark method
+        Std.System.WriteLn($“${Name} says WOOF!”)
+    }
+
+    pub Feed()
+    {
+        Hungry = false
+        Std.System.WriteLn($“${Name} is full.”)
+    }
+
+    pub Sleep()
+    {
+        Awake = false
+        Std.System.WriteLn($“${Name} fell asleep.”)
+    }
+
+    pub WakeUp()
+    {
+        Awake = true
+        Hungry = true
+        Std.System.WriteLn($“${Name} woke up.”)
+    }
+
+    pub SayMood()
+    {
+        Std.System.WriteLn($“${Name} is ${Mood}.”)
+        return Mood
+    }
+}
