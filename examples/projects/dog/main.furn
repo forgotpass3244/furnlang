@@ -1,6 +1,6 @@
 require "dog"
 
-let Pet = Dog(“coco”)
+let Pet = Dog(“coco”, 4)
 Pet.Bark()
 
 Pet.Hungry = true
