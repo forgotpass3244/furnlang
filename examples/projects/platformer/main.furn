@@ -1,0 +1,32 @@
+let Window = Std.GUI.New(“Title”)
+Std.GUI.Run(Window)
+
+:: Sprites - Std.List \
+Push back Std.Dict’s to the list \
+then call Std.GUI.DrawSprites(Window)
+let Sprites = Std.GUI.GetSprites(Window)
+
+let MySprite = Std.Dict.New()
+Sprites.PushBack(MySprite)
+
+:: Top left 
+MySprite.PositionX = 0
+MySprite.PositionY = 0
+
+:: Cover screen
+MySprite.ScaleX = 100
+MySprite.ScaleY = 100
+
+:: Set image source
+MySprite.Image = “MyImage.bmp”
+
+Sprite.Clickable = true
+
+Sprite.OnMousePress = fn(MB) 
+{
+    :: 1 = Lclick
+    :: 2 = Rclick
+    :: 3 = Mclick
+}
+
+Std.GUI.DrawSprites(Window)
