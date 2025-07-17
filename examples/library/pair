@@ -1,0 +1,23 @@
+struct Pair
+{
+    pub First
+    pub Second
+
+    __New(a, b)
+    {
+        First = a
+        Second = b
+    }
+
+    pub Swap()
+    {
+        let temp = First
+        First = Second
+        Second = temp
+    }
+
+    __Print()
+    {
+        return $”pair (${First}, ${Second})”
+    }
+}
