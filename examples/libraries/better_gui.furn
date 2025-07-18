@@ -1,0 +1,76 @@
+struct Vector2
+{
+    pub X
+    pub Y
+
+    __New(int: _X = 0, int: _Y = 0)
+    {
+        X = _X
+        Y = _Y
+    }
+}
+
+class Sprite
+{
+    pub Position
+    pub Scale
+    pub Image 
+
+    __New(
+        Vector2: _Position = Vector2(),
+        Vector2: _Scale = Vector2(),
+        string: _Image = “”
+    ) {
+        Position = _Position
+        Scale = _Scale 
+        Image = _Image
+    }
+}
+
+struct Frame
+{
+    pri Window
+    pri RealSprites
+    pri Sprites
+
+    __New()
+    {
+        Window = Std.GUI.New(“Title”)
+        Std.GUI.Run(Window)
+
+        RealSprites = Std.GUI.GetSprites(Window)
+        Sprites = Std.List.New()
+    }
+
+    pub AddSprite(Sprite)
+    {
+        Sprites.PushBack(Sprite)
+    }
+
+    pub Render()
+    {
+        RealSprites.Clear()
+
+        foreach Sprite, Sprites
+        {
+            RealSprites.PushBack(SpriteToDict(Sprite))
+        }
+
+        Std.GUI.DrawSprites(Window)
+    }
+
+    pri SpriteToDict(Sprite)
+    {
+        let Result = Std.Dict.New()
+
+        Result.PositionX = Sprite.Position.X
+        Result.PositionY = Sprite.Position.Y
+
+        Result.ScaleX = Sprite.Scale.X
+        Result.ScaleY = Sprite.Scale.Y
+
+        Result.Image = Sprite.Image
+
+        return Result
+    }
+}
