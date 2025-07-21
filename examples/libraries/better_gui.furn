@@ -3,7 +3,7 @@ struct Vector2
     pub X
     pub Y
 
-    __New(int: _X = 0, int: _Y = 0)
+    __New(_X = 0, _Y = 0)
     {
         X = _X
         Y = _Y
@@ -14,12 +14,13 @@ class Sprite
 {
     pub Position
     pub Scale
-    pub Image 
+    pub Image
+    pub Bitmap
 
     __New(
         Vector2: _Position = Vector2(),
         Vector2: _Scale = Vector2(),
-        string: _Image = “”
+        string: _Image = ""
     ) {
         Position = _Position
         Scale = _Scale 
@@ -33,13 +34,18 @@ struct Frame
     pri RealSprites
     pri Sprites
 
-    __New()
+    __New(string: Title = "Untitled")
     {
-        Window = Std.GUI.New(“Title”)
+        Window = Std.GUI.New(Title)
         Std.GUI.Run(Window)
 
         RealSprites = Std.GUI.GetSprites(Window)
         Sprites = Std.List.New()
+    }
+
+    pub Close()
+    {
+        Std.GUI.Exit(Window)
     }
 
     pub AddSprite(Sprite)
@@ -57,19 +63,35 @@ struct Frame
         }
 
         Std.GUI.DrawSprites(Window)
+
+        let i = 0
+        foreach RealSprite, RealSprites
+        {
+            i = i + 1
+            :: let Sprite = Sprites[i]
+            :: Sprite.Bitmap = RealSprite.__hbitmap
+            Std.Unstore(RealSprite)
+        }
     }
 
     pri SpriteToDict(Sprite)
     {
         let Result = Std.Dict.New()
 
-        Result.PositionX = Sprite.Position.X
-        Result.PositionY = Sprite.Position.Y
+        Result.PositionX = Std.Math.Round(Sprite.Position.X)
+        Result.PositionY = Std.Math.Round(Sprite.Position.Y)
 
-        Result.ScaleX = Sprite.Scale.X
-        Result.ScaleY = Sprite.Scale.Y
+        Result.ScaleX = Sprite.Scale.X + 0.0
+        Result.ScaleY = Sprite.Scale.Y + 0.0
 
         Result.Image = Sprite.Image
+
+        if Sprite.Bitmap
+        {
+            Result.__hbitmap = Sprite.Bitmap
+        }
+
+        Std.System.WriteLn(Result)
 
         return Result
     }
