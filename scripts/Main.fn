@@ -41,8 +41,7 @@ fn Main()
 			var fn function = functions[Input]
 			
 			if function do
-				var int result = function()
-				WriteLn(result)
+				function()
 			else do
 				WriteLn("Unknown command '", Input, "'")
 			esc
