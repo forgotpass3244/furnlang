@@ -1,0 +1,18 @@
+lib Map
+	lib pprint
+		fn String({string} map) do
+			Std::Terminal::WriteLn('{')
+			for string k: string v in map do
+				Std::Terminal::WriteLn('    ', k, ': ', v, ',')
+			esc
+			Std::Terminal::WriteLn('}')
+		esc
+		fn Function({fn} map) do
+			Std::Terminal::WriteLn('{')
+			for string k: fn v in map do
+				Std::Terminal::WriteLn('    ', k, ': ', v, ',')
+			esc
+			Std::Terminal::WriteLn('}')
+		esc
+	esc
+esc

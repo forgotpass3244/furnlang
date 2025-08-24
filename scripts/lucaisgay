@@ -1,0 +1,7 @@
+use lib Std::Terminal
+
+fn Main()
+    Write("Press enter (button) to be gay")
+	ReadLn()
+	WriteLn("You are gay!!")
+esc
