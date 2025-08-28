@@ -1,5 +1,0 @@
-lib Str
-	fn Trim(string str) => Std::String::Trim(str)
-	fn Lower(string str) => Std::String::Case(0, str)
-	fn Upper(string str) => Std::String::Case(1, str)
-esc
