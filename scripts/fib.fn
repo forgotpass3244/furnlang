@@ -1,0 +1,15 @@
+/// fibonacci test script
+
+use lib Std
+use lib IO
+
+fn fib(int n) int do
+    if n < 2 do => n esc
+    => fib(n-1) + fib(n-2)
+esc
+
+// spits out some random garbage?
+// something wrong with
+// the interpreter i am guessing
+// hopefully this gets fixed soon
+fn Main() => WriteLn(fib(10))
