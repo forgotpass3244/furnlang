@@ -1,0 +1,8 @@
+use lib Std
+use lib Std::IO
+use lib Std::System
+
+fn Main({} of <string> argv) null do
+    Std::IO::WriteLn("Hello World!")
+    => null
+esc
