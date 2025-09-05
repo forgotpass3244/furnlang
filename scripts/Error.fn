@@ -1,0 +1,63 @@
+// header for basic error handling using signals
+// basic example:
+
+// #include "Error.fn"
+//
+// fn Main():
+//     do: //start of the try statement
+//         // ~> means broadcast signal
+//         ~> use Error(ErrLvl::Error, "Message")
+// 
+//     with Error e: // receive the signal
+//         Std::Console::WriteLn("Error: ", e)
+//     esc
+//
+//     do: ~> use Error(ErrLvl::Fatal, "Message")
+//     with Error e:
+//         if e.Level == ErrLvl::Error:
+//             Std::Console::WriteLn("An error occurred:\n", e.Message)
+//         else e.Level == ErrLvl::Fatal:
+//             Std::Console::WriteLn("A fatal error has occurred:\n", e.Message)
+//             Std::Console::WriteLn("Closing the program due to the unexpected error.")
+//             Std::Exit(1)
+//         esc
+//     esc
+// esc
+
+// source:
+
+// Error level type is just a string:
+// eg. 'DeprecationWarning'
+#macro ErrLvl_t = string; 
+
+// Library containing basic error types
+// Use this instead of string literals
+// when throwing errors
+lib ErrLvl:
+    ErrLvl_t Warning = 'Warning'
+    ErrLvl_t Deprecated = 'DeprecationWarning' // = No longer being supported or updated
+    ErrLvl_t Error = 'Error' // Common error
+    ErrLvl_t Fatal = 'Fatal'
+esc
+
+// Error class definition
+class Error:
+    ErrLvl_t Level()
+    string Message()
+
+    // Constructor to create a new Error
+    fn __Init(ErrLvl_t Level, string Message):
+        this.Level = Level
+        this.Message = Message
+    esc
+
+    // Error to string
+    // __ToString method
+    // Example string:
+    // Error (DeprecationWarning):
+    // 'This function is deprectated will no longer be supported, not recommended to use in future work.'
+    fn __ToString() string
+        => use string("Error (", this.Level, "):\n", this.Message)
+esc
+
+

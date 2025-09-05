@@ -1,0 +1,34 @@
+use lib Std
+use lib Std::Console
+use lib Std::System
+
+class Dog:
+    string Name = "Unnamed"
+    int Age = 0
+    string Breed = "Golden Retriever"
+    string Gender = "Male"
+
+    fn __Init(string Name, int Age):
+        this.Name = Name
+        this.Age = Age
+    esc
+
+    fn Bark() => WriteLn(this.Name, " says BARK!")
+
+    fn __ToString() string
+    => use string (
+        "Name: ", this.Name, "\n",
+        "Age: ", this.Age, "\n",
+        "Breed: ", this.Breed, "\n",
+        "Gender: ", this.Gender
+    )
+esc
+
+
+fn Main({} of <string> argv):
+    var Dog pet("coco", 4)
+
+    WriteLn(pet)
+    pet.Bark()
+esc
+
