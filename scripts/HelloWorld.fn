@@ -1,3 +1,0 @@
-fn Main({} of <string> argv) null:
-    Std::Console::WriteLn("Hello World!")
-esc
