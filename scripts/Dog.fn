@@ -19,10 +19,10 @@ class Dog:
 
     fn __ToString() string
     => use string (
-        "Name: ", this.Name, "\n",
-        "Age: ", this.Age, "\n",
-        "Breed: ", this.Breed, "\n",
-        "Gender: ", this.Gender
+        "Name: ", this.Name,
+        "\nAge: ", this.Age,
+        "\nBreed: ", this.Breed,
+        "\nGender: ", this.Gender
     )
 esc
 
