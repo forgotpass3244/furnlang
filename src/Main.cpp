@@ -97,7 +97,7 @@ int main(int argc, char *_argv[])
     // for (const auto &Token : Parse.Tokens)
     //     std::cout << "Token: '" << Token.Text << "' Line: " << Token.Line << "\n";
 
-    Interp.GlobalScope["Std"] = Variable(CreateStdLib(), TypeDescriptor(ValueType::ExternalFunction));
+    Interp.GlobalScope["Std"] = Variable(CreateStdLib(), TypeDescriptor(ValueType::Library));
 
     try
     {
@@ -118,3 +118,4 @@ int main(int argc, char *_argv[])
 
     return 0;
 }
+
