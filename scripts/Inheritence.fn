@@ -1,0 +1,62 @@
+use lib Std
+use lib Std::Console
+use lib Std::System
+
+class Animal:
+  string Name
+  int Age
+  int Gender
+
+  fn Animal(string Name, int Age, int Gender):
+    this.Name = Name
+    this.Age = Age
+    this.Gender = Gender
+  esc
+
+  fn MakeNoise():
+    WriteLn(this.Name, " growls")
+  esc
+
+esc
+
+class Pettable:
+  fn Pet():
+    WriteLn(this.Name, " was pet")
+  esc
+esc
+
+lib Gender:
+  int Male = 1
+  int Female = 2
+esc
+
+class Dog with Animal, Pettable:
+  string Breed
+
+  fn Dog(string Name, int Age, int Gender, string Breed):
+    this.Animal(Name, Age, Gender)
+    this.Breed = Breed
+  esc
+
+  // override the make noise method
+  fn MakeNoise():
+    WriteLn(this.Name, " barks")
+  esc
+
+  fn __ToString() string
+  => use string (
+    "Name: ", this.Name,
+    "\nAge: ", this.Age,
+    "\nBreed: ", this.Breed,
+    "\nGender: ", this.Gender
+  )
+esc
+
+fn Main():
+  var Dog Pet("coco", 4, Gender::Female, "Yorkie")
+  WriteLn(Pet, '\n')
+  Pet.MakeNoise()
+  Pet.Pet()
+esc
+
+

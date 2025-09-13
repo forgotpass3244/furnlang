@@ -1,0 +1,24 @@
+
+
+#macro TT_t = int;
+
+lib TT:
+  TT_t Ident = 1
+  TT_t Print = 2
+  TT_t Equals = 3
+  TT_t Number = 4
+  TT_t StringLiteral = 5
+esc
+
+class Token:
+  TT_t Type
+  string Text
+
+  fn Token(TT_t Type, string Text):
+    this.Type = Type
+    this.Text = Text | ""
+  esc
+
+  fn __ToString() string => use string("Token '", this.Text, "' (Type ", this.Type, ")")
+esc
+

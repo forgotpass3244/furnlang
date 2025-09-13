@@ -1,0 +1,6 @@
+
+
+fn Main():
+  Std::Console::WriteLn("Hello World!")
+esc
+

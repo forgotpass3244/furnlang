@@ -1,0 +1,70 @@
+#macro TT_t = int;
+
+class Parser:
+  {} of <Token> Tokens
+  int Position = 0
+
+  fn Parser({} of <Token> Tokens):
+    Std::Dispose(this.Tokens)
+    this.Tokens = Tokens
+  esc
+
+  fn Advance():
+    this.Position = this.Position + 1
+  esc
+
+  fn Peek() Token => this.Tokens[this.Position]
+  fn PeekAhead(int Offset) Token => this.Tokens[this.Position + Offset]
+
+  fn Previous() Token => this.Tokens[this.Position - 1]
+
+  fn Check(TT_t Type) bool => this.Peek() != null & this.Peek().Type == Type
+
+  fn Match(TT_t Type) Token:
+    if this.Check(Type):
+      var Token Tok = this.Peek()
+      this.Advance()
+      return Tok
+    esc
+  esc
+
+  fn Expect(TT_t Type) Token:
+    var Token Tok = this.Match(Type)
+    if Tok == null: ~> use string("Expected token ", Type) esc
+    return Tok
+  esc
+
+  fn Parse() {} of <any>:
+    var {} of <any> Result()
+    
+    for this.Peek() != null:
+      if this.Match(TT::Print):
+        var any Expr = this.ParseExpression()
+        Result.PushBack(use PrintStatement(Expr))
+      else this.PeekAhead(1).Type == TT::Equals:
+        var string Name = this.Expect(TT::Ident).Text
+        this.Expect(TT::Equals)
+        var any Init = this.ParseExpression()
+        Result.PushBack(use VariableAssignment(Name, Init))
+      else: ~> "Expected statement."
+      esc
+    esc
+
+    return Result
+  esc
+
+  fn ParseExpression() any:
+    if this.Peek() == null: ~> "Expected expression, instead found nothing." esc
+
+    if this.Match(TT::Ident):
+      return use VariableExpression(this.Previous().Text)
+    else this.Match(TT::Number):
+      return use ValueExpression(use int(this.Previous().Text))
+    else this.Match(TT::StringLiteral):
+      return use ValueExpression(this.Previous().Text)
+    else:
+      ~> "Expected expression"
+    esc
+  esc
+esc
+

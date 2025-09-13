@@ -1,0 +1,36 @@
+
+
+class ValueExpression:
+  any Value
+  
+  fn ValueExpression(any Value):
+    this.Value = Value
+  esc
+esc
+
+class VariableExpression:
+  string Name
+
+  fn VariableExpression(string Name):
+    this.Name = Name
+  esc
+esc
+
+class VariableAssignment:
+  string Name
+  any Init
+
+  fn VariableAssignment(string Name, any Init):
+    this.Name = Name
+    this.Init = Init
+  esc
+esc
+
+class PrintStatement:
+  any Expr
+
+  fn PrintStatement(any Expr):
+    this.Expr = Expr
+  esc
+esc
+

@@ -1,0 +1,46 @@
+// basic console application
+// 'help' for a list of commands
+
+#macro lambda = fn() => ;
+
+use lib Std
+use lib Std::Console
+
+fn help():
+  WriteLn("\nCommands:")
+  for functions, string name, fn function:
+    WriteLn(name)
+  esc
+  
+  WriteLn()
+esc
+
+var {} of <fn> functions = {
+  <fn>
+  ["help"]: help,
+  ["close"]: lambda Exit(0),
+  ["lock"]: lambda System::Execute("rundll32.exe user32.dll, LockWorkStation"),
+  ["clear"]: lambda TryClearIO(),
+  ["echo"]: lambda WriteLn(ReadLn()),
+}
+
+fn Main():
+  for true:
+    Write("Input: ")
+    
+    var string Input = ReadLn()
+    Input = Input.Trim() // trim white space
+    Input = Input.Case(0) // make lowercase
+    
+    if Input != '':
+      var fn function = functions[Input]
+      
+      if function != null:
+        function()
+      else:
+        WriteLn("Unknown command '", Input, "'")
+      esc
+    esc
+  esc
+esc
+

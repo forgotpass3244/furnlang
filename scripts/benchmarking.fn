@@ -1,0 +1,10 @@
+var int Iterations = 1'000'000
+
+fn Main():
+  var float start = Std::System::TimeSinceYear(2025)
+  // cache this function because library lookups will slow it down
+  var ^fn p = Std::Console::PutLn // use Put instead of WriteLn because Put does not flush the output immediately
+  for Iterations, int i: p(i) esc
+  var float end = Std::System::TimeSinceYear(2025)
+  Std::Console::WriteLn("Time: ", end - start)
+esc

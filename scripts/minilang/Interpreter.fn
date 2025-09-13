@@ -1,0 +1,36 @@
+
+
+class Interpreter:
+  {} of <any> Nodes
+  {} of <any> GlobalScope
+  
+  fn Interpreter({} of <any> Nodes):
+    Std::Dispose(this.Nodes)
+    this.Nodes = Nodes
+  esc
+
+  fn Execute():
+    for this.Nodes, int i, any Node:
+      this.ExecuteStatement(Node)
+    esc
+  esc
+
+  fn ExecuteStatement(any Node):
+    do: ~> Std::Dynamic(Node)
+    with VariableAssignment Stmt:
+      this.GlobalScope[Stmt.Name] = this.EvaluateExpression(Stmt.Init)
+    with PrintStatement Stmt:
+      Std::Console::WriteLn(this.EvaluateExpression(Stmt.Expr))
+    esc
+  esc
+
+  fn EvaluateExpression(any Node) any:
+    do: ~> Std::Dynamic(Node)
+    with ValueExpression Expr:
+      return Expr.Value
+    with VariableExpression Expr:
+      return this.GlobalScope[Expr.Name]
+    esc
+  esc
+esc
+

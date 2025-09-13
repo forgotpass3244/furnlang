@@ -1,0 +1,87 @@
+
+
+#macro TT_t = int;
+
+class Lexer:
+  string Input
+  int Position = 1
+
+  fn Lexer(string Input):
+    this.Input = Input
+  esc
+
+  fn Advance():
+    this.Position = this.Position + 1
+  esc
+
+  fn Peek() string => this.Input.At(this.Position)
+
+  fn ReadSymbol() Token:
+    if this.Peek() == "=":
+      this.Advance()
+      return use Token(TT::Equals, "=")
+    esc
+  esc
+
+  fn Lex() {} of <Token>:
+    var {} of <Token> Result()
+
+    for this.Peek() != null:
+      var string c = this.Peek()
+
+      if c.IsSpace():
+        this.Advance()
+      else c.IsAlpha():
+        Result.PushBack(this.ReadIdent())
+      else c.IsDigit():
+        Result.PushBack(this.ReadNumber())
+      else c == '"':
+        Result.PushBack(this.ReadString())
+      else:
+        Result.PushBack(this.ReadSymbol())
+      esc
+    esc
+
+    return Result
+  esc
+
+  fn ReadIdent() Token:
+    var string String()
+
+    for this.Peek() != null & this.Peek().IsAlpha():
+      String = use string(String, this.Peek())
+      this.Advance()
+    esc
+
+    var TT_t Type = TT::Ident
+    if String == "print":
+      Type = TT::Print
+    esc
+
+    return use Token(Type, String)
+  esc
+
+  fn ReadNumber() Token:
+    var string Number()
+
+    for this.Peek() != null & this.Peek().IsDigit():
+      Number = use string(Number, this.Peek())
+      this.Advance()
+    esc
+
+    return use Token(TT::Number, Number)
+  esc
+
+  fn ReadString() Token:
+    this.Advance()
+    var string String()
+
+    for this.Peek() != null & this.Peek() != '"':
+      String = use string(String, this.Peek())
+      this.Advance()
+    esc
+
+    this.Advance() //consume closing quote
+    return use Token(TT::StringLiteral, String)
+  esc
+esc
