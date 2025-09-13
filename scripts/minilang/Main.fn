@@ -1,5 +1,3 @@
-
-
 #include "Lexer.fn"
 #include "Token.fn"
 #include "Ast.fn"
@@ -28,4 +26,3 @@ fn Main():
   Interp.Execute()
   Std::Console::WriteLn("\nGlobal Scope: ", Interp.GlobalScope)
 esc
-
