@@ -1,0 +1,58 @@
+
+import Gender
+
+class Animal
+{
+    name: String
+    age: int
+    gender: int
+
+    Animal(name: String?, age: int?, gender: int?)
+    {
+        self.name = name || 'unnamed'
+        self.age = age || 0
+        self.gender = gender || Gender.Male
+    }
+
+    fun makeNoise() => Console.println('\{name} growls')
+
+    fun __ToString() :: String => 'Animal'
+}
+
+class Pettable
+{
+    fun pet() => Console.println('I was pet')
+}
+
+class Dog as Animal, Pettable
+{
+    Breed: String
+
+    Dog(name: String?, age: int?, gender: int?, Breed: String?)
+    {
+        self.Animal(name, age, gender)
+        self.Breed = Breed || 'Golden Retriever'
+    }
+
+    # override the make noise method
+    fun makeNoise() => Console.println('\{self.name} barks')
+
+    fun __ToString() :: String
+    => 'name: \{new String(self.name)}\nAge: \{self.age}\nBreed: \{Breed}\nGender: \{self.gender}'
+}
+
+fun Main() {
+    pet: Animal = new Dog('coco', 4, Gender.Female, 'Yorkie')
+    Console.println(pet, '\n')
+    pet.makeNoise()
+    (pet as? Dog)?.pet()
+
+    Console.print('\n')
+
+    pet2 := new Dog('Tricky', 9, Gender.Male, 'some breed') with {
+        fun pet() => Console.println('\{self.name} does not like being pet')
+    }
+    
+    pet2.pet()
+    Console.println('\n', pet2, '\n')
+}
