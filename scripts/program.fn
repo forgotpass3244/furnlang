@@ -15,7 +15,7 @@ defn displayClass(x: Class) {
     printl
 }
 
-defn main() {
+defn main {
     object: mut = new Class()
     object.a = 100
     printl(object.a)
@@ -46,3 +46,4 @@ defn main() {
     
     printl(pNum[0])
 }
+
