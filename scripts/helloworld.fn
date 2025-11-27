@@ -1,0 +1,6 @@
+
+import pkg console
+defn main {
+    printl('Hello, World!')
+}
+
